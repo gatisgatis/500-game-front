@@ -1,5 +1,5 @@
 import React from "react";
-import { useGlobalState } from "../elements/GlobalStateProvider";
+import { useGlobalState } from "../providers/GlobalStateProvider";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../elements/Button";
 import { TableSimpleCard } from "../elements/TableSimpleCard";

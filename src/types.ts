@@ -15,8 +15,9 @@ export interface PlayerSimple {
   tableId: string;
 }
 
-type PlayerIndex = "Player_1" | "Player_2" | "Player_3";
-type Phase =
+export type PlayerIndex = "Player_1" | "Player_2" | "Player_3";
+
+export type Phase =
   | "Bidding"
   | "Take Cards"
   | "Pass Cards"
@@ -24,7 +25,11 @@ type Phase =
   | "Round Ending"
   | "Game Ending";
 
-interface PlayerFull {
+export type Suit = "d" | "c" | "h" | "s";
+
+export type Rank = "9" | "T" | "J" | "Q" | "K" | "A";
+
+export interface PlayerFull {
   bid: number | null;
   cardFromBidWinner: string | null;
   cards: string;
@@ -43,7 +48,7 @@ export interface TableFull {
   players: PlayerFull[];
 }
 
-interface GameInfo {
+export interface GameInfo {
   type: string;
   activePlayerIndex: PlayerIndex;
   bidWinner: PlayerIndex | null;

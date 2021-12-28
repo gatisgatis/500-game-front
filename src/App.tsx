@@ -8,7 +8,7 @@ import {
 import {
   GlobalStateProvider,
   useGlobalState,
-} from "./elements/GlobalStateProvider";
+} from "./providers/GlobalStateProvider";
 import { HomeView } from "./views/HomeView";
 import { TableView } from "./views/TableView";
 import { LoginView } from "./views/LoginView";

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useGlobalState } from "../elements/GlobalStateProvider";
+import { useGlobalState } from "../providers/GlobalStateProvider";
 import { ENDPOINT } from "../constants";
 import { Button } from "../elements/Button";
 

@@ -1,61 +1,60 @@
 import React from "react";
-import { useGlobalState } from "../elements/GlobalStateProvider";
+import { useGlobalState } from "../providers/GlobalStateProvider";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../elements/Button";
-import { Card } from "../elements/Card";
-import { BiddingBox } from "../elements/BiddingBox";
+import { OtherPlayerTablo } from "../elements/OtherPlayerTablo";
+import { EmptyPlayersTablo } from "../elements/EmptyPlayersTablo";
+import { getNextPlayer, getPrevPlayer } from "../utils";
+import { Board } from "../elements/Board";
+import { MyPlayerTablo } from "../elements/MyPlayerTablo";
 
 export const TableView = () => {
   const { tableInfo, sendWsMsg, me } = useGlobalState();
   const navigate = useNavigate();
 
-  const onMakeBid = (bid: string) => {
-    sendWsMsg(`play_turn ${tableInfo?.tableId} ${bid}`);
-  };
+  const nextPlayer = getNextPlayer(me.playerIndex, tableInfo?.players);
+  const prevPlayer = getPrevPlayer(me.playerIndex, tableInfo?.players);
+  const mePlayer = tableInfo?.players.find(
+    (p) => p.playerIndex === me.playerIndex
+  );
 
   return (
     <div>
-      <Button onClick={() => navigate("/")}>Back Home</Button>
-      {me.playerIndex == tableInfo?.gameInfo?.activePlayerIndex && (
-        <BiddingBox onSubmit={onMakeBid} />
-      )}
-      <div>
-        {tableInfo?.players.map((player) => {
-          return (
-            <div key={player.name}>
-              <span
-                className={`${
-                  player.playerIndex ===
-                    tableInfo?.gameInfo?.activePlayerIndex && "bg-green-300"
-                }`}
-              >
-                {player.name} - {player.isOnline ? "online" : "offline"}
-              </span>
-              <div>BID: {player.bid || "-"}</div>
-              <div>Trick count: {player.trickCount || "-"}</div>
-              <div>
-                {player.cards.split(" ").map((card, index) => {
-                  return (
-                    <Card
-                      key={index}
-                      onClickPlay={() =>
-                        sendWsMsg(`play_turn ${tableInfo?.tableId} ${card}`)
-                      }
-                      name={card}
-                    />
-                  );
-                })}
-              </div>
-            </div>
-          );
-        })}
+      <div className="flex justify-between mb-4">
+        <Button onClick={() => navigate("/")}>Back To Lobby</Button>
+        <Button
+          onClick={() => console.log(`Results for table ${tableInfo?.tableId}`)}
+        >
+          See Results
+        </Button>
       </div>
-      <div className="mt-3">
-        <div>CARDS PLAYED:</div>
-        {tableInfo?.gameInfo?.cardsPlayed &&
-          tableInfo?.gameInfo?.cardsPlayed.split(" ").map((card, index) => {
-            return <Card key={index} name={card} />;
-          })}
+      <div className="flex justify-around mb-4">
+        {nextPlayer && (
+          <OtherPlayerTablo
+            player={nextPlayer}
+            gameInfo={tableInfo?.gameInfo || null}
+          />
+        )}
+        {!nextPlayer && <EmptyPlayersTablo />}
+        {prevPlayer && (
+          <OtherPlayerTablo
+            player={prevPlayer}
+            gameInfo={tableInfo?.gameInfo || null}
+          />
+        )}
+        {!prevPlayer && <EmptyPlayersTablo />}
+      </div>
+      <div className="mb-4">
+        <Board gameInfo={tableInfo?.gameInfo || null} />
+      </div>
+      <div>
+        {mePlayer && (
+          <MyPlayerTablo
+            player={mePlayer}
+            gameInfo={tableInfo?.gameInfo || null}
+          />
+        )}
+        {!mePlayer && "This Should Not Be Possible to see this"}
       </div>
     </div>
   );

@@ -55,9 +55,12 @@ export const GlobalStateProvider: FC = ({ children }) => {
   const [playersList, setPlayersList] = useState<PlayerSimple[]>([]);
   const [tableInfo, setTableInfo] = useState<TableFull | null>(null);
   const wsSendMsgRef = useRef(defaultSendWsMsgFunction);
+  const wsCloseRef = useRef(() => {});
 
   useEffect(() => {
     if (me.name) {
+      console.log("here", me.name);
+
       // setup ws client
       const wsClient = new w3cwebsocket(`ws://localhost:9000/${me.name}/ws`);
 
@@ -95,11 +98,22 @@ export const GlobalStateProvider: FC = ({ children }) => {
       wsSendMsgRef.current = (msg: string) => {
         wsClient.send(msg);
       };
+
+      wsCloseRef.current = () => {
+        console.log("closeeee");
+        wsClient.close();
+      };
+
+      return () => {
+        console.log("close");
+        wsClient.close();
+      };
     }
   }, [me.name]);
 
   const logOut = () => {
     localStorage.clear();
+    wsCloseRef.current();
     setMe({ ...me, name: "" });
   };
 
@@ -116,7 +130,9 @@ export const GlobalStateProvider: FC = ({ children }) => {
         logOut,
       }}
     >
-      {children}
+      <div className="mx-auto min-h-[100vh] max-w-[1200px] w-full bg-gray-100">
+        {children}
+      </div>
     </GlobalStateContext.Provider>
   );
 };
