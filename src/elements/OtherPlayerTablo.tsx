@@ -1,36 +1,40 @@
-import {GameInfo, PlayerFull} from "../types";
+import { GameInfo, PlayerFull } from "../types";
 import { CardSmall } from "./CardSmall";
+import {getBid} from "../utils";
 
 interface Props {
   player: PlayerFull;
   gameInfo: GameInfo | null;
 }
 
-export const OtherPlayerTablo = ({
-  player,
-  gameInfo
-}: Props): JSX.Element => {
-  console.log(player);
-
+export const OtherPlayerTablo = ({ player, gameInfo }: Props): JSX.Element => {
   const active: boolean =
-    !!gameInfo?.activePlayerIndex && gameInfo.activePlayerIndex === player?.playerIndex;
+    !!gameInfo?.activePlayerIndex &&
+    gameInfo.activePlayerIndex === player?.playerIndex;
+
+  const bid = getBid(player.bid)
 
   return (
     <div
-      className={`sm:max-w-[500px] bg-slate-200 w-[45vw] sm:w-[35vw] h-[150px] flex flex-col justify-between p-4 ${
-        active && "border-3 border-green-600"
+      className={`sm:max-w-[500px] bg-sky-100 rounded w-[45vw] sm:w-[35vw] min-h-[150px] flex flex-col justify-between p-4 ${
+        active && "border-2 border-green-600"
       }`}
     >
       {player && (
         <>
           <div className="flex flex-col sm:flex-row sm:justify-between">
             <div className="">
-              <div className="bg-red-100">{player?.name}</div>
-              <div className="bg-red-200">
-                {player?.isOnline ? "ONLINE" : "OFFLINE"}
-              </div>
+              <div className="text-xl font-bold">{player?.name}</div>
+              <div className="">{player?.isOnline ? "ONLINE" : "OFFLINE"}</div>
             </div>
-            {gameInfo?.phase === "Bidding" && <div>{player?.bid}</div>}
+            {gameInfo?.phase === "Bidding" && (
+              <div className="sm:text-xl lg:text-2xl font-bold text-green-600">
+                {bid}
+              </div>
+            )}
+            {gameInfo?.phase === "Play Cards" && (
+              <div className="font-bold sm:text-xl">{player.trickCount}</div>
+            )}
           </div>
           <div className="flex sm:flex-col">
             <div className="hidden sm:flex">
@@ -40,17 +44,13 @@ export const OtherPlayerTablo = ({
                   .map((_, index) => <CardSmall key={index} />)}
             </div>
             <div className="sm:hidden">
-              <div className="bg-green-300">
-                {player?.cards && player.cards.split(" ").length}
-              </div>
+              {player?.cards && (
+                <CardSmall value={player.cards.split(" ").length} />
+              )}
             </div>
-            {gameInfo?.phase === "Play Cards" && (
-              <div>Tricks: {player?.trickCount || 0}</div>
-            )}
           </div>
         </>
       )}
-      {!player && "Waiting for player to join"}
     </div>
   );
 };

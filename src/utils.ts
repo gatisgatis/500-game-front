@@ -33,3 +33,10 @@ export const getPrevPlayer = (
     return null;
   }
 };
+
+export const getBid = (bid: number | null) => {
+  if (bid === null) return null;
+  else if (bid < 0) return "PASSED";
+  else if (bid > 0) return `${bid}`;
+  else return "NO BID MADE";
+};

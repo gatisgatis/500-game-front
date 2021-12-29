@@ -33,18 +33,22 @@ export const LoginView = () => {
   };
 
   return (
-    <div>
-      <h1>ENTER YOUR NAME</h1>
-      <input
-        className="bg-blue"
-        type="text"
-        value={inputValue}
-        onChange={(e) => {
-          setInputValue(e.target.value);
-          setWarning("");
-        }}
-      />
-      <Button onClick={() => onLogin(inputValue)}>Register</Button>
+    <div className="flex flex-col items-center pt-16">
+      <h1 className="text-8xl">500</h1>
+      <h3 className="text-4xl mb-16">CARD GAME</h3>
+      <div className="mb-4">ENTER YOU NAME</div>
+      <div>
+        <input
+          className="bg-blue ml-4"
+          type="text"
+          value={inputValue}
+          onChange={(e) => {
+            setInputValue(e.target.value);
+            setWarning("");
+          }}
+        />
+        <Button onClick={() => onLogin(inputValue)}>OK</Button>
+      </div>
       {warning && warning}
     </div>
   );

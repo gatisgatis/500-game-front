@@ -39,6 +39,7 @@ export interface PlayerFull {
   playerIndex: PlayerIndex;
   pointsCollected: number | null;
   trickCount: number | null;
+  playedCard: string | null;
 }
 
 export interface TableFull {
@@ -53,6 +54,7 @@ export interface GameInfo {
   activePlayerIndex: PlayerIndex;
   bidWinner: PlayerIndex | null;
   cardsPlayed: string;
+  cardsPrevTrick: string;
   highestBid: number;
   phase: Phase;
   roundNumber: number;

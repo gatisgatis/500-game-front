@@ -9,14 +9,14 @@ import { Board } from "../elements/Board";
 import { MyPlayerTablo } from "../elements/MyPlayerTablo";
 
 export const TableView = () => {
-  const { tableInfo, sendWsMsg, me } = useGlobalState();
+  const { tableInfo, me } = useGlobalState();
   const navigate = useNavigate();
 
   const nextPlayer = getNextPlayer(me.playerIndex, tableInfo?.players);
   const prevPlayer = getPrevPlayer(me.playerIndex, tableInfo?.players);
   const mePlayer = tableInfo?.players.find(
     (p) => p.playerIndex === me.playerIndex
-  );
+  ) || null;
 
   return (
     <div>
@@ -44,10 +44,10 @@ export const TableView = () => {
         )}
         {!prevPlayer && <EmptyPlayersTablo />}
       </div>
-      <div className="mb-4">
-        <Board gameInfo={tableInfo?.gameInfo || null} />
+      <div className="mb-4 mx-2">
+        <Board gameInfo={tableInfo?.gameInfo || null} mePlayer={mePlayer} nextPlayer={nextPlayer} prevPlayer={prevPlayer}/>
       </div>
-      <div>
+      <div className="mx-2 sm:mx-8">
         {mePlayer && (
           <MyPlayerTablo
             player={mePlayer}
