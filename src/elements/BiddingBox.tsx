@@ -42,8 +42,9 @@ export const BiddingBox = ({
           pass
         </button>
         <button
-          className="px-2 py-1 sm:px-4 text-xl text-white font-bold rounded bg-emerald-500 hover:bg-emerald-400"
+          className="px-2 py-1 sm:px-4 text-xl text-white font-bold rounded bg-emerald-500 hover:bg-emerald-400 disabled:bg-emerald-300"
           onClick={() => onSubmit(`${bid}`)}
+          disabled={bid > 205}
         >
           bid
         </button>

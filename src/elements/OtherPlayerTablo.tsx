@@ -32,9 +32,14 @@ export const OtherPlayerTablo = ({ player, gameInfo }: Props): JSX.Element => {
                 {bid}
               </div>
             )}
-            {gameInfo?.phase === "Play Cards" && (
-              <div className="font-bold sm:text-xl">{player.trickCount}</div>
-            )}
+            <div className="flex items-start">
+              {gameInfo?.phase !== "Bidding" && gameInfo?.bidWinner === player.playerIndex && (
+                  <div className="font-bold sm:text-xl border-2 rounded border-red-400 px-2 py-1">{gameInfo.highestBid}</div>
+              )}
+              {gameInfo?.phase === "Play Cards" && (
+                  <div className="font-bold sm:text-xl px-2 py-1">{player.trickCount}</div>
+              )}
+            </div>
           </div>
           <div className="flex sm:flex-col">
             <div className="hidden sm:flex">

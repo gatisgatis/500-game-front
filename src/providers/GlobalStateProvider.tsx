@@ -100,12 +100,10 @@ export const GlobalStateProvider: FC = ({ children }) => {
       };
 
       wsCloseRef.current = () => {
-        console.log("closeeee");
         wsClient.close();
       };
 
       return () => {
-        console.log("close");
         wsClient.close();
       };
     }

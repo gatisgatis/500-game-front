@@ -50,9 +50,19 @@ export const MyPlayerTablo = ({ player, gameInfo }: Props): JSX.Element => {
           <div className="text-[4vw] lg:text-4xl font-bold text-green-600">
             {bid}
           </div>
-          {gameInfo?.phase === "Play Cards" && (
-            <div className="font-bold sm:text-xl">{player.trickCount}</div>
-          )}
+          <div className="flex items-start">
+            {gameInfo?.phase === "Play Cards" &&
+              gameInfo.bidWinner === player.playerIndex && (
+                <div className="font-bold sm:text-xl border-2 rounded border-red-400 px-2 py-1">
+                  {gameInfo.highestBid}
+                </div>
+              )}
+            {gameInfo?.phase === "Play Cards" && (
+              <div className="font-bold sm:text-xl px-2 py-1">
+                {player.trickCount}
+              </div>
+            )}
+          </div>
           {cardToLeft && cardToRight && (
             <Button onClick={() => setConfirmPassingCards(true)}>
               {`CONFIRM PASSING ${cardToLeft} ${cardToRight}`}

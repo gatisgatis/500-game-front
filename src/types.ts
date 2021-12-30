@@ -59,4 +59,5 @@ export interface GameInfo {
   phase: Phase;
   roundNumber: number;
   trumpSuit: string | null;
+  marriagePoints: number;
 }
