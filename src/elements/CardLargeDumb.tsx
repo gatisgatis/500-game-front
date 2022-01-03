@@ -14,9 +14,11 @@ export const CardLargeDumb = ({ name }: Props): JSX.Element => {
   };
   const rank = name.split("")[0];
 
+  const cardWithHeightClassName = "w-12 h-16 sm:w-14 sm:h-20 md:w-16 md:h:24 lg:w-20 lg:h-28"
+
   return (
     <div
-      className={`relative flex justify-center items-center max-w-[80px] min-w-[32px] w-[8vw] max-h-[100px] min-h-[40px] h-[10vw] rounded mx-1 ${bgColorClassName()}`}
+      className={`relative flex justify-center items-center rounded mx-1 ${bgColorClassName()} ${cardWithHeightClassName}`}
     >
       <div className="text-white text-[6vw] lg:text-6xl font-bold">{rank}</div>
     </div>

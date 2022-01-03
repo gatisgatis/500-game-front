@@ -25,7 +25,7 @@ export const LoginView = () => {
         playerIndex: null,
       });
       localStorage.setItem("playerName", name);
-      navigate("/");
+      navigate("/"); // change this to navigate to tableview if original link was for table...
     } else {
       setInputValue("");
       setWarning("This name is already taken");

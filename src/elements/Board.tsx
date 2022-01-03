@@ -71,7 +71,7 @@ export const Board = ({
   };
 
   const getRoundResultsAdditionalInfo = (player: PlayerFull | null) => {
-    if (gameInfo?.activePlayerIndex === player?.playerIndex) {
+    if (gameInfo?.bidWinner === player?.playerIndex) {
       const points = player?.pointsCollected || 0;
       const bid = gameInfo?.highestBid || 0;
       if (points >= bid) {
@@ -134,12 +134,12 @@ export const Board = ({
         {gameInfo?.phase === "Play Cards" && gameInfo.trumpSuit && (
           <div className="flex flex-col items-end">
             {gameInfo.marriagePoints > 0 && (
-              <div className="text-blue-600 font-bold text-[4vw]">
+              <div className="text-blue-600 font-bold text-[4vw] lg:text-2xl">
                 {gameInfo.marriagePoints}
               </div>
             )}
             <div
-              className={`lg:text-2xl font-bold text-white p-2 sm:p-4 ${bgColorClassName()}`}
+              className={`lg:text-xl font-bold text-white px-2 py-1 ${bgColorClassName()}`}
             >
               TRUMP SUIT
             </div>
@@ -147,10 +147,16 @@ export const Board = ({
         )}
         {(gameInfo?.phase === "Bidding" ||
           gameInfo?.phase === "Take Cards") && (
-          <div className="flex">
+          <div className="hidden sm:flex ">
             {[1, 2, 3].map((card) => {
               return <CardSmall key={card} />;
             })}
+          </div>
+        )}
+        {(gameInfo?.phase === "Bidding" ||
+          gameInfo?.phase === "Take Cards") && (
+          <div className="sm:hidden ">
+            <CardSmall value={3} />
           </div>
         )}
       </div>

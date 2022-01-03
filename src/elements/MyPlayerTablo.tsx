@@ -37,18 +37,18 @@ export const MyPlayerTablo = ({ player, gameInfo }: Props): JSX.Element => {
 
   return (
     <div
-      className={`bg-sky-100 w-full flex flex-col justify-between px-8 py-8 rounded ${
+      className={`bg-sky-100 w-full flex flex-col justify-between px-2 sm:px-8 py-4 sm:py-8 rounded ${
         active && "border-4 border-green-400"
       }`}
     >
       <div className="mb-4 mx-8 flex justify-between ">
         <div>
-          <div className="text-2xl font-bold">{player.name}</div>
+          <div className="text-xl sm:text-2xl font-bold">{player.name}</div>
           <div className="">{player?.isOnline ? "ONLINE" : "OFFLINE"}</div>
         </div>
-        <div>
-          <div className="text-[4vw] lg:text-4xl font-bold text-green-600">
-            {bid}
+        <div className="flex items-center justify-end">
+          <div className="text-xl md:text-2xl lg:text-4xl font-bold text-green-600">
+              {bid}
           </div>
           <div className="flex items-start">
             {gameInfo?.phase === "Play Cards" &&
@@ -70,7 +70,7 @@ export const MyPlayerTablo = ({ player, gameInfo }: Props): JSX.Element => {
           )}
         </div>
       </div>
-      <div className="min-h-[80px] flex items-center justify-center">
+      <div className="min-h-[80px] flex items-center justify-center flex-wrap">
         {gameInfo &&
           player.cards &&
           player.cards.split(" ").map((card) => {

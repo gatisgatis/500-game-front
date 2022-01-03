@@ -28,7 +28,7 @@ export const OtherPlayerTablo = ({ player, gameInfo }: Props): JSX.Element => {
               <div className="">{player?.isOnline ? "ONLINE" : "OFFLINE"}</div>
             </div>
             {gameInfo?.phase === "Bidding" && (
-              <div className="sm:text-xl lg:text-2xl font-bold text-green-600">
+              <div className="text-xl md:text-2xl lg:text-3xl sm:text-right font-bold text-green-600">
                 {bid}
               </div>
             )}
@@ -42,13 +42,13 @@ export const OtherPlayerTablo = ({ player, gameInfo }: Props): JSX.Element => {
             </div>
           </div>
           <div className="flex sm:flex-col">
-            <div className="hidden sm:flex">
+            <div className="hidden md:flex">
               {player?.cards &&
                 player.cards
                   .split(" ")
                   .map((_, index) => <CardSmall key={index} />)}
             </div>
-            <div className="sm:hidden">
+            <div className="md:hidden">
               {player?.cards && (
                 <CardSmall value={player.cards.split(" ").length} />
               )}

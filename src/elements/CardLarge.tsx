@@ -36,23 +36,25 @@ export const CardLarge = ({
   };
   const rank = name.split("")[0];
 
+  const cardWithHeightClassName = "w-12 h-16 sm:w-14 sm:h-20 md:w-16 md:h:24 lg:w-20 lg:h-28"
+
   return (
     <div
-      className={`relative overflow-hidden flex justify-center items-center max-w-[80px] min-w-[32px] w-[8vw] max-h-[100px] min-h-[40px] h-[10vw] rounded mx-1 ${bgColorClassName()}`}
+      className={`relative overflow-hidden flex justify-center items-center mb-2 rounded mx-1 ${bgColorClassName()} ${cardWithHeightClassName}`}
     >
-      <div className="text-white text-[6vw] lg:text-6xl font-bold">{rank}</div>
+      <div className="text-white text-3xl sm:text-5xl md:text-6xl font-bold mt-2 lg:mt-0">{rank}</div>
       {phase === "Pass Cards" && active && (
         <div className="absolute top-0 flex flex-between w-full">
           {!isSelected && (
             <>
               <button
-                className="text-xs text-bold text-white w-1/2 p-1 hover:bg-[rgba(0,0,0,0.2)]"
+                className="text-xs lg:text-base text-bold text-white w-1/2 p-1 hover:bg-[rgba(0,0,0,0.2)]"
                 onClick={onPassRight}
               >
                 ←
               </button>
               <button
-                className="text-xs text-bold text-white w-1/2 p-1 hover:bg-[rgba(0,0,0,0.2)]"
+                className="text-xs lg:text-base text-bold text-white w-1/2 p-1 hover:bg-[rgba(0,0,0,0.2)]"
                 onClick={onPassLeft}
               >
                 →
@@ -61,7 +63,7 @@ export const CardLarge = ({
           )}
           {isSelected && (
             <button
-              className="text-xs text-bold text-white w-full p-1 hover:bg-[rgba(0,0,0,0.2)]"
+              className="text-xs lg:text-base text-bold text-white w-full p-1 hover:bg-[rgba(0,0,0,0.2)]"
               onClick={onClearPass}
             >
               X
@@ -72,7 +74,7 @@ export const CardLarge = ({
       {phase === "Play Cards" && active && (
         <div className="absolute top-0 flex flex-between w-full">
           <button
-            className="text-xs text-bold text-white w-full p-1 hover:bg-[rgba(0,0,0,0.2)]"
+            className="text-xs lg:text-base text-bold text-white w-full p-1 hover:bg-[rgba(0,0,0,0.2)]"
             onClick={onPlay}
           >
             PLAY
