@@ -59,8 +59,6 @@ export const GlobalStateProvider: FC = ({ children }) => {
 
   useEffect(() => {
     if (me.name) {
-      console.log("here", me.name);
-
       // setup ws client
       const wsClient = new w3cwebsocket(`ws://localhost:9000/${me.name}/ws`);
 
@@ -83,7 +81,6 @@ export const GlobalStateProvider: FC = ({ children }) => {
               (p: { name: string }) => p.name == me.name
             ).playerIndex,
           });
-          console.log(message);
           setTableInfo(message);
         }
         if (type === "tablesList") {

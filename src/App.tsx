@@ -4,6 +4,8 @@ import {
   Routes,
   Route,
   Navigate,
+    useMatch,
+    useLocation
 } from "react-router-dom";
 import {
   GlobalStateProvider,
@@ -15,7 +17,9 @@ import { LoginView } from "./views/LoginView";
 
 const Private = ({ element }: { element: JSX.Element }) => {
   const { me } = useGlobalState();
-  return me.name ? element : <Navigate to="/login" />;
+  const {pathname} = useLocation();
+
+  return me.name ? element : <Navigate to={`/login?goto=${pathname || "/"}`} />;
 };
 
 function App() {

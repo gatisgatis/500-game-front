@@ -149,7 +149,7 @@ export const TableView = () => {
             gameInfo={tableInfo?.gameInfo || null}
           />
         )}
-        {!mePlayer && "This Should Not Be Possible to see this"}
+        {!mePlayer && "It Should Not Be Possible to see this"}
       </div>
     </div>
   );

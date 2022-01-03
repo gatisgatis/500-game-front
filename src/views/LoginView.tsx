@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useGlobalState } from "../providers/GlobalStateProvider";
 import { ENDPOINT } from "../constants";
 import { Button } from "../elements/Button";
@@ -7,6 +7,7 @@ import { Button } from "../elements/Button";
 export const LoginView = () => {
   const { setMe } = useGlobalState();
   const navigate = useNavigate();
+  const { search } = useLocation();
   const [inputValue, setInputValue] = useState(
     localStorage.getItem("playerName") || ""
   );
@@ -25,7 +26,10 @@ export const LoginView = () => {
         playerIndex: null,
       });
       localStorage.setItem("playerName", name);
-      navigate("/"); // change this to navigate to tableview if original link was for table...
+      let goto = "/";
+      const gotoParams = search.split("?goto=");
+      if (gotoParams.length >= 2) goto = gotoParams[1];
+      navigate(goto);
     } else {
       setInputValue("");
       setWarning("This name is already taken");
